@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "bunx vite",
-    "build": "bunx tsc -b && bunx vite build",
+    "build": "bunx tsc -b && vite build",
     "lint": "bunx eslint .",
     "preview": "bunx vite preview"
   },
