@@ -48,7 +48,7 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 Spoonacular API for providing the recipe data.
 Foodish API for providing random food images.
 
-## Contributing
+## Contributing 🫂🫂
 Contributions are welcome!<br />Please open an issue or submit a pull request for any changes.
 
 ## Contact 🥸🥸
