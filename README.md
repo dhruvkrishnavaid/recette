@@ -1,50 +1,55 @@
-# React + TypeScript + Vite
+# Recetté 🍔🍕🍿🍟
+Recetté is a web application that helps users find and manage recipes. It provides features such as searching for recipes, viewing detailed recipe information, and managing daily nutrition.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Features 🚀🚀
+- **Search Recipes**: Search for recipes based on keywords.
+- **View Recipe Details**: View detailed information about a recipe, including ingredients, instructions, and nutrition facts.
+- **Daily Nutrition Dashboard**: Track daily nutrition intake for calories, protein, and water.
+- **Profile Management**: View and manage user profile information.
+- **Notifications**: Receive notifications about new recipes and updates.
 
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+## Installation 🎮🎮
+1. Clone the repository:
+```sh
+git clone https://github.com/dhruvkrishnavaid/recette.git
+```
+2. Install dependencies
+```sh
+cd recette
+bun install
+```
+3. Set environment variables
+```sh
+cp .env.example .env
+```
+4.  Start the development server
+```sh
+bun run dev
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+## Scripts 👾👾
+- **dev:** Starts the development server.
+- **build:** Builds the project for production.
+- **lint:** Runs ESLint to check for code quality issues.
+- **preview:** Previews the production build.
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+## Technologies Used ⚡️⚡️
+- **React:** A JavaScript library for building user interfaces.
+- **TypeScript:** A typed superset of JavaScript that compiles to plain JavaScript.
+- **Vite:** A fast build tool for modern web projects.
+- **Tailwind CSS:** A utility-first CSS framework.
+- **React Query:** A library for fetching, caching, and updating asynchronous data in React.
+- **Axios:** A promise-based HTTP client for the browser and Node.js.
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+## License ✨✨
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.
+
+## Acknowledgements 🙋‍♂️🙋‍♂️
+Spoonacular API for providing the recipe data.
+Foodish API for providing random food images.
+
+## Contributing
+Contributions are welcome!<br />Please open an issue or submit a pull request for any changes.
+
+## Contact 🥸🥸
+For any inquiries, please contact dhruvkrishnavaid@gmail.com.

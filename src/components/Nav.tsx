@@ -1,18 +1,29 @@
-import { useState, useRef } from "react";
-import { Link, NavLink } from "react-router";
+import { useState, useRef, useEffect } from "react";
+import { Link, NavLink, useNavigate, useSearchParams } from "react-router";
 import useSuggestions from "../utils/useSuggestions";
 
 const Nav = () => {
+  const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const path = window.location.pathname.split("/")[1];
   const inputRef = useRef<HTMLInputElement>(null);
   const [open, setOpen] = useState(false);
   const [input, setInput] = useState("");
   const sug = useSuggestions(input);
-  const [suggestions, setSuggestions] = useState<{id: number; title: string; imageType: string}[] | null>(null);
+  const [suggestions, setSuggestions] = useState<
+    { id: number; title: string; imageType: string }[] | null
+  >(null);
+  useEffect(() => {
+    if (path === "search") {
+      setInput(searchParams.get("q") || "");
+    }
+  }, [path, searchParams]);
+  useEffect(() => {
+    if (input.trim().length > 2) setSuggestions(sug.data);
+  }, [input, sug.data]);
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
     setInput(e.target.value);
-    if (e.target.value.length > 2) setSuggestions(sug.data);
-    else setSuggestions(null);
   };
   const focusInput = () => {
     inputRef.current?.focus();
@@ -22,35 +33,68 @@ const Nav = () => {
       inputRef.current?.blur();
     }
   };
+  const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    navigate(`/search?q=${input}`);
+    if (input.length > 2) {
+      setSuggestions(null);
+      setInput("");
+    }
+  };
   return (
     <>
       <ul className="flex items-center justify-between w-full h-24 px-6 py-2">
-        <div
-          onClick={() => setOpen(!open)}
-          onMouseEnter={() => setOpen(true)}
-          onMouseLeave={() => setOpen(false)}
-          className="relative group"
-        >
-          <li className="p-1 bg-white rounded-full shadow-lg cursor-pointer hover:shadow-xl md:hover:shadow-lg transition-shadow duration-300 md:cursor-auto">
-            <img
-              src="https://picsum.photos/200.webp"
-              alt="avatar"
-              className="w-16 h-16 rounded-full"
-            />
-          </li>
-          {open && (
-            <div className="absolute left-0 py-2 md:hidden top-18 transition-opacity duration-300">
-              <ul className="px-2 text-center bg-white rounded-lg shadow-lg divide-y divide-primary">
-                <li className="p-4">
-                  <NavLink to="/profile">Profile</NavLink>
-                </li>
-                <li className="p-4">
-                  <NavLink to="/favorites">Favorites</NavLink>
-                </li>
-              </ul>
-            </div>
-          )}
-        </div>
+        {path === "" ? (
+          <div
+            onClick={() => setOpen(!open)}
+            onMouseEnter={() => setOpen(true)}
+            onMouseLeave={() => setOpen(false)}
+            className="relative group"
+          >
+            <li className="p-1 bg-white rounded-full shadow-lg cursor-pointer hover:shadow-xl md:hover:shadow-lg transition-shadow duration-300 md:cursor-auto">
+              <img
+                src="https://picsum.photos/200.webp"
+                alt="avatar"
+                className="w-16 h-16 min-w-16 min-h-16 rounded-full"
+              />
+            </li>
+            {open && (
+              <div className="absolute left-0 py-2 md:hidden top-18 transition-opacity duration-300">
+                <ul className="px-2 text-center bg-white rounded-lg shadow-lg divide-y divide-primary">
+                  <li className="p-4">
+                    <NavLink to="/profile">Profile</NavLink>
+                  </li>
+                  <li className="p-4">
+                    <NavLink to="/favorites">Favorites</NavLink>
+                  </li>
+                </ul>
+              </div>
+            )}
+          </div>
+        ) : (
+          <button
+            onClick={() => window.history.back()}
+            className="flex items-center justify-center w-12 h-12 p-4 bg-white rounded-full shadow-lg cursor-pointer hover:shadow-xl transition-shadow duration-300"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className=""
+            >
+              <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+              <path d="M5 12l14 0" />
+              <path d="M5 12l6 6" />
+              <path d="M5 12l6 -6" />
+            </svg>
+          </button>
+        )}
         <div className="hidden w-1/4 md:flex justify-evenly">
           <li className="p-4">
             <NavLink to="/profile">Profile</NavLink>
@@ -61,16 +105,16 @@ const Nav = () => {
         </div>
         <div className="relative group">
           <div className="flex px-4 py-2 rounded-full shadow-lg w-fit bg-white/75 hover:bg-white focus-within:bg-white hover:shadow-xl focus:outline-none transition-all duration-300">
-            <form className="flex items-center">
+            <form onSubmit={handleFormSubmit} className="flex items-center">
               <input
                 ref={inputRef}
                 type="text"
                 value={input}
-                onChange={(e) => handleInputChange(e)}
+                onChange={handleInputChange}
                 onMouseEnter={focusInput}
                 onMouseLeave={blurInput}
                 placeholder="Search..."
-                className="outline-0"
+                className="outline-0 w-28"
               />
               <button type="submit" className="cursor-pointer">
                 <svg
@@ -97,7 +141,9 @@ const Nav = () => {
               <ul className="px-2 bg-white rounded-lg shadow-lg divide-y divide-primary">
                 {suggestions.map((suggestion) => (
                   <li key={suggestion.id} className="py-4">
-                    <Link to={`/recipes/${suggestion.id}`}>{suggestion.title}</Link>
+                    <Link to={`/recipes/${suggestion.id}`}>
+                      {suggestion.title}
+                    </Link>
                   </li>
                 ))}
               </ul>

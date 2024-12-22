@@ -37,8 +37,8 @@ const Recipe = () => {
               alt="avatar"
               className="w-1/2 shadow-lg hidden min-[28rem]:block rounded-xl"
             />
-            <div className="flex flex-col max-w-1/2 gap-4">
-              <div className="text-5xl">{data.title}</div>
+            <div className="flex flex-col min-[28rem]:max-w-1/2 gap-4">
+              <div className="text-5xl min-[28rem]:text-4xl min-[35rem]:text-5xl">{data.title}</div>
               <div className="text-3xl">
                 <span className="p-1 mr-2 rounded-full bg-tertiary"></span>
                 {data.nutrition.nutrients[0].amount}

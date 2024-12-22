@@ -10,6 +10,7 @@ import Recipe from "./pages/Recipe";
 import Error from "./pages/Error";
 import Profile from "./pages/Profile";
 import Notifications from "./pages/Notifications";
+import Search from "./pages/Search";
 
 const router = createBrowserRouter([
   {
@@ -28,6 +29,10 @@ const router = createBrowserRouter([
   {
     path: "notifications",
     element: <App page={<Notifications />} />,
+  },
+  {
+    path: "search",
+    element: <App page={<Search />} />,
   }
 ]);
 
